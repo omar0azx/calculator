@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func ButtonPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: (sender as AnyObject).tag)
         if onScreenNum.text == "0" || opreationIsActive || resultIsShowing {
            onScreenNum.text =  String((sender as AnyObject).tag - 1)
             resultIsShowing = false
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clerPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 22)
         onScreenNum.text = "0"
         savedOperation = ""
         savedNumber = 0.0
@@ -42,6 +44,7 @@ class ViewController: UIViewController {
       
     }
     @IBAction func additionPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 14)
         savedNumber = Double(onScreenNum.text!)!
         savedOperation = "+"
         opreationIsActive = true
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divisionPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 11)
         savedNumber = Double(onScreenNum.text!)!
         savedOperation = "÷"
         opreationIsActive = true
@@ -56,13 +60,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func multiplicationPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 12)
         savedNumber = Double(onScreenNum.text!)!
-        savedOperation = "X"
+        savedOperation = "×"
         opreationIsActive = true
         
     }
     
     @IBAction func subtractionPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 13)
         savedNumber = Double(onScreenNum.text!)!
         savedOperation = "-"
         opreationIsActive = true
@@ -70,12 +76,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equelPressed(_ sender: Any) {
+        buttonAnimtion(theButtonTag: 15)
         switch savedOperation {
         case "+":
             onScreenNum.text = String(savedNumber + Double(onScreenNum.text!)!)
         case "-":
             onScreenNum.text = String(savedNumber - Double(onScreenNum.text!)!)
-        case "X":
+        case "×":
             onScreenNum.text = String(savedNumber * Double(onScreenNum.text!)!)
         case "÷":
             if Double(onScreenNum.text!)! > 0.0 {
@@ -89,6 +96,23 @@ class ViewController: UIViewController {
         resultIsShowing = true
 
     }
+    func buttonAnimtion(theButtonTag: Int) {
+        UIView.animate(withDuration: 0.05, animations: {
+            if theButtonTag <= 10 {
+                self.view.viewWithTag(theButtonTag)?.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+            } else { self.view.viewWithTag(theButtonTag)?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            }
+               }, completion: { _ in
+                if theButtonTag >= 11 && theButtonTag < 20 {
+                   self.view.viewWithTag(theButtonTag)?.backgroundColor = #colorLiteral(red: 1, green: 0.6862745098, blue: 0, alpha: 1)
+                } else if theButtonTag < 12 {
+                    self.view.viewWithTag(theButtonTag)?.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+                } else if theButtonTag >= 20 {
+                    self.view.viewWithTag(theButtonTag)?.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+                }
+               })
+    }
+
     
 }
 
